@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Girlfriend's Day, Kanak! ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Georgia, serif;
+      background: linear-gradient(120deg, #1c3b2d, #2e4d3f, #1c3b2d);
+      background-size: 600% 600%;
+      animation: bgMove 15s ease infinite;
+      color: #f4e9d8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      flex-direction: column;
+      position: relative;
+    }
+    @keyframes bgMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #d4af37;
+      text-shadow: 0 0 10px rgba(212,175,55,0.4);
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+    button {
+      background: #d4af37;
+      color: #1c3b2d;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #f5d580;
+    }
+
+    /* Pizza pop-up */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: #2c2c2c;
+      color: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(212,175,55,0.5);
+      transition: 0.5s;
+      max-width: 320px;
+      z-index: 1001;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px rgba(212,175,55,0.3); }
+      to { box-shadow: 0 0 40px rgba(212,175,55,0.8); }
+    }
+    .popup.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .close-btn {
+      margin-top: 15px;
+      background: #d4af37;
+      color: #1c3b2d;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+    .close-btn:hover {
+      background: #f5d580;
+    }
+
+    /* CSS Pizza */
+    .pizza {
+      position: relative;
+      width: 0;
+      height: 0;
+      border-left: 80px solid transparent;
+      border-right: 80px solid transparent;
+      border-bottom: 140px solid #ffcc66; /* pizza color */
+      margin: 0 auto 15px;
+    }
+    /* crust */
+    .pizza::before {
+      content: "";
+      position: absolute;
+      top: -15px;
+      left: -80px;
+      width: 160px;
+      height: 20px;
+      background: #d2691e;
+      border-radius: 10px;
+    }
+    /* toppings */
+    .pepperoni {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: #b22222;
+      border-radius: 50%;
+    }
+    .pep1 { top: 30px; left: -15px; }
+    .pep2 { top: 70px; left: -40px; }
+    .pep3 { top: 70px; left: 15px; }
+    .pep4 { top: 100px; left: -10px; }
+
+    /* Floating hearts from pizza */
+    .pizza-heart {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0;
+      animation: rise 3s forwards;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(0.8); opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-80px) scale(1.2); opacity: 0; }
+    }
+
+    /* Falling hearts */
+    .heart {
+      position: fixed;
+      top: -20px;
+      font-size: 24px;
+      color: #d4af37;
+      opacity: 0.8;
+      animation: fall linear forwards;
+      z-index: 0;
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Fireflies / sparkles */
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 200, 0.8);
+      border-radius: 50%;
+      animation: twinkle 3s infinite alternate;
+    }
+    @keyframes twinkle {
+      from { transform: scale(0.5); opacity: 0.3; }
+      to { transform: scale(1.2); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Girlfriend's Day, Kanak! 💖</h1>
+  <p>You are the pizza to my heart 🍕❤️</p>
+  <button onclick="showPopup()">Click for a surprise</button>
+
+  <div class="popup" id="pizzaPopup">
+    <div class="pizza" id="pizzaSlice">
+      <div class="pepperoni pep1"></div>
+      <div class="pepperoni pep2"></div>
+      <div class="pepperoni pep3"></div>
+      <div class="pepperoni pep4"></div>
+    </div>
+    <p>Here's a slice of love pizza for you, Kanak! ❤️</p>
+    <button class="close-btn" onclick="closePopup()">Yummy! 😋</button>
+  </div>
+
+  <!-- Background audio -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_87b7f79ff2.mp3?filename=romantic-piano-10985.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Pop sound -->
+  <audio id="popSound">
+    <source src="https://cdn.pixabay.com/download/audio/2021/09/17/audio_04be1f3a8b.mp3?filename=pop-94319.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function showPopup() {
+      document.getElementById('pizzaPopup').classList.add('show');
+      document.getElementById('popSound').play().catch(()=>{});
+      spawnPizzaHearts();
+    }
+    function closePopup() {
+      document.getElementById('pizzaPopup').classList.remove('show');
+    }
+
+    // Falling hearts animation
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '💛';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random()*3 + 3) + 's';
+      heart.style.fontSize = Math.random()*20 + 20 + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 400);
+
+    // Start background music after first interaction
+    document.body.addEventListener('click', () => {
+      document.getElementById('bgMusic').play().catch(()=>{});
+    }, {once:true});
+
+    // Fireflies
+    for(let i=0;i<20;i++){
+      const spark = document.createElement('div');
+      spark.classList.add('sparkle');
+      spark.style.left = Math.random()*100 + 'vw';
+      spark.style.top = Math.random()*100 + 'vh';
+      spark.style.animationDuration = (Math.random()*3 + 2) + 's';
+      document.body.appendChild(spark);
+    }
+
+    // Hearts rising from pizza slice
+    function spawnPizzaHearts() {
+      const pizza = document.getElementById('pizzaSlice');
+      for(let i=0;i<5;i++){
+        const h = document.createElement('div');
+        h.classList.add('pizza-heart');
+        h.innerHTML = '❤️';
+        h.style.left = (Math.random()*60+20) + 'px';
+        h.style.bottom = '0px';
+        h.style.animationDelay = (i*0.3)+'s';
+        pizza.appendChild(h);
+        setTimeout(()=>h.remove(), 3000);
+      }
+    }
+  </script>
+</body>
+</html>
